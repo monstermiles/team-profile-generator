@@ -1,5 +1,8 @@
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 const fs = require('fs');
+
+const Manager = require("./lib/manager.js");
+
 
 
 function addTeamMember() {
@@ -11,14 +14,14 @@ function addTeamMember() {
             choices: ['Manager', 'Engineer', 'Intern', "I'm done building my team"]
         }
     )
-        .then(answer => {
-            if (answer.position === 'Manager') {
+        .then(employeeInfo => {
+            if (employeeInfo.position === 'Manager') {
                 addManager();
             }
-            else if (answer.position === 'Engineer') {
+            else if (employeeInfo.position === 'Engineer') {
                 addEngineer();
             }
-            else if (answer.position === 'Intern') {
+            else if (employeeInfo.position === 'Intern') {
                 addIntern();
             }
             else {
@@ -30,28 +33,27 @@ function addTeamMember() {
 
 
 
-
 function addManager() {
     inquirer.prompt([
         {
             type: 'input',
             message: "What is your team manager's name?",
-            name: 'manager-name'
+            name: 'name'
         },
         {
             type: 'input',
             message: "What is your team manager's ID number?",
-            name: 'manager-id'
+            name: 'id'
         },
         {
             type: 'input',
             message: "What is your team manager's email adress?",
-            name: 'manager-email'
+            name: 'email'
         },
         {
             type: 'input',
             message: "What is your team manager's office number?",
-            name: 'manager-office'
+            name: 'office'
         },
 
         // {
@@ -60,8 +62,11 @@ function addManager() {
         //     name:
         // }
     ])
-    .then(
-
+        
+    .then(managerInfo => {
+            const manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.office)
+            console.log(manager)
+        }
     )
 }
 
