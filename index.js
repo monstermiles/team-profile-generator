@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const Manager = require("./lib/manager.js");
 const Engineer = require("./lib/engineer.js")
+const Intern = require("./lib/intern")
 
 
 function addTeamMember() {
@@ -88,7 +89,7 @@ function addEngineer() {
         {
             type: 'input',
             message: "What is the engineer's Github username?",
-            name: 'office'
+            name: 'github'
         },
 
     ])
@@ -102,6 +103,38 @@ function addEngineer() {
 }
 
 
+function addIntern() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the intern's name?",
+            name: 'name'
+        },
+        {
+            type: 'input',
+            message: "What is the intern's ID number?",
+            name: 'id'
+        },
+        {
+            type: 'input',
+            message: "What is the intern's email adress?",
+            name: 'email'
+        },
+        {
+            type: 'input',
+            message: "What is the intern's school?",
+            name: 'school'
+        },
+
+    ])
+        
+    .then(internInfo => {
+            const intern = new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school)
+            console.log(intern)
+            addTeamMember();
+        }
+    )
+}
 
 
 
