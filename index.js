@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 const Manager = require("./lib/manager.js");
-
+const Engineer = require("./lib/engineer.js")
 
 
 function addTeamMember() {
@@ -37,38 +37,74 @@ function addManager() {
     inquirer.prompt([
         {
             type: 'input',
-            message: "What is your team manager's name?",
+            message: "What is the team manager's name?",
             name: 'name'
         },
         {
             type: 'input',
-            message: "What is your team manager's ID number?",
+            message: "What is the team manager's ID number?",
             name: 'id'
         },
         {
             type: 'input',
-            message: "What is your team manager's email adress?",
+            message: "What is the team manager's email adress?",
             name: 'email'
         },
         {
             type: 'input',
-            message: "What is your team manager's office number?",
+            message: "What is the team manager's office number?",
             name: 'office'
         },
 
-        // {
-        //     type: 'input',
-        //     message:
-        //     name:
-        // }
     ])
         
     .then(managerInfo => {
             const manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.office)
             console.log(manager)
+            addTeamMember();
         }
     )
 }
+
+
+
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the engineer's name?",
+            name: 'name'
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's ID number?",
+            name: 'id'
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's email adress?",
+            name: 'email'
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's Github username?",
+            name: 'office'
+        },
+
+    ])
+        
+    .then(engineerInfo => {
+            const engineer = new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github)
+            console.log(engineer)
+            addTeamMember();
+        }
+    )
+}
+
+
+
+
+
 
 
 
