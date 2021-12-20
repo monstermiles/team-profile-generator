@@ -1,9 +1,18 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+// const generateHTML = require("./src/generateHTML")
+
 const Manager = require("./lib/manager.js");
 const Engineer = require("./lib/engineer.js")
 const Intern = require("./lib/intern")
+
+
+
+
+const teamArray = []
+
+
 
 
 function addTeamMember() {
@@ -59,9 +68,11 @@ function addManager() {
 
     ])
         
-    .then(managerInfo => {
-            const manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.office)
-            console.log(manager)
+    .then(info => {
+            const manager = new Manager(info.name, info.id, info.email, info.office)
+            // console.log(manager)
+            info.position = manager
+            teamArray.push(manager)
             addTeamMember();
         }
     )
@@ -94,9 +105,10 @@ function addEngineer() {
 
     ])
         
-    .then(engineerInfo => {
-            const engineer = new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github)
-            console.log(engineer)
+    .then(info => {
+            const engineer = new Engineer(info.name, info.id, info.email, info.github)
+            // console.log(engineer)
+            teamArray.push(engineer)
             addTeamMember();
         }
     )
@@ -128,12 +140,19 @@ function addIntern() {
 
     ])
         
-    .then(internInfo => {
-            const intern = new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school)
-            console.log(intern)
+    .then(info => {
+            const intern = new Intern(info.name, info.id, info.email, info.school)
+            // console.log(intern)
+            teamArray.push(intern)
             addTeamMember();
         }
     )
+}
+
+
+function generateHTML() {
+    // console.log(teamArray) 
+    teamArray.forEach(teamMember => console.log("generating HTML")) 
 }
 
 
@@ -142,3 +161,5 @@ function addIntern() {
 
 
 addTeamMember();
+
+
