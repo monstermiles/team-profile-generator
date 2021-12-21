@@ -3,6 +3,7 @@ const fs = require('fs');
 
 // const generateHTML = require("./src/generateHTML")
 
+const Employee = require('./lib/employee')
 const Manager = require("./lib/manager.js");
 const Engineer = require("./lib/engineer.js")
 const Intern = require("./lib/intern")
@@ -142,7 +143,6 @@ function addIntern() {
         
     .then(info => {
             const intern = new Intern(info.name, info.id, info.email, info.school)
-            // console.log(intern)
             teamArray.push(intern)
             addTeamMember();
         }
@@ -151,15 +151,18 @@ function addIntern() {
 
 
 function generateHTML() {
-    // console.log(teamArray) 
-    teamArray.forEach(teamMember => console.log("generating HTML")) 
+    console.log(teamArray) 
+    teamArray.forEach(teamMember => {
+        console.log("generating HTML");
+        console.log(teamMember.constructor.name)
+       
+    }
+    ) 
+    
 }
 
 
 
 
-
-
 addTeamMember();
-
 
