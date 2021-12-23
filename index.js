@@ -188,7 +188,9 @@ function generateEmployeeCards() {
         // console.log("generating HTML");
         // console.log(teamMember.constructor.name)
         if (teamMember.constructor.name === "Manager") {
-            generateManagerCard(teamMember);
+            /////////////
+            return generateManagerCard(teamMember);
+            ////////////
         }
         else if (teamMember.constructor.name === "Engineer") {
             generateEngineerCard(teamMember);
@@ -206,7 +208,7 @@ function generateEmployeeCards() {
 function generateManagerCard(teamMember) {
     // console.log("this is a manager card")
     // console.log(teamMember.constructor.name)
-    const managerCard = `
+    return `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
                 <h3>${teamMember.name}</h3>
                 <h4>Manager</h4>
@@ -215,15 +217,32 @@ function generateManagerCard(teamMember) {
                 <p>Office Number ${teamMember.office}</p>
             </div>
 `
-    console.log(managerCard)
+    // console.log(managerCard)
 }
 
-function generateEngineerCard() {
-    console.log("engineer card")
+function generateEngineerCard(teamMember) {
+    return `
+    <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
+                <h3>${teamMember.name}</h3>
+                <h4>Engineer</h4>
+                <p>ID: ${teamMember.id}</p>
+                <p>${teamMember.email}</p>
+                <p>Github: ${teamMember.github}</p>
+            </div>
+`
+
 }
 
-function generateInternCard() {
-    console.log("intern card")
+function generateInternCard(teamMember) {
+    return `
+    <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
+                <h3>${teamMember.name}</h3>
+                <h4>Intern</h4>
+                <p>ID: ${teamMember.id}</p>
+                <p>${teamMember.email}</p>
+                <p>Github: ${teamMember.school}</p>
+            </div>
+`
 }
 
 
