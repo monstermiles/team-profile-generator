@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const path = require('path')
+// const path = require('path')
 // const generateHTML = require("./src/generateHTML")
 
 const Employee = require('./lib/employee')
@@ -156,6 +156,12 @@ function addIntern() {
 
 //This should be in the generateHTML file/////////////////////////////////////////////
 
+
+
+//empty array for storing the employee cards//
+const htmlArray = []
+
+
 const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -166,14 +172,14 @@ const htmlContent = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Team Profile</title>
 </head>
 
 <body>
     <div style="text-align: center;">
         <h1>Team Profile</h1>
         <div id="cardContainer" class="row align-items-center">
-            ${generateEmployeeCards(teamArray)}
+            ${(htmlArray)}
         </div>
 
     </div>
@@ -183,6 +189,10 @@ const htmlContent = `
 </html>`
 
 
+
+
+
+
 //loops over teamArray and determines which type of card to create
 function generateEmployeeCards() {
     teamArray.forEach(teamMember => {
@@ -190,8 +200,9 @@ function generateEmployeeCards() {
         // console.log(teamMember.constructor.name)
         if (teamMember.constructor.name === "Manager") {
             /////////////
-            return generateManagerCard(teamMember);
+            // return generateManagerCard(teamMember);
             ////////////
+            generateManagerCard(teamMember);
         }
         else if (teamMember.constructor.name === "Engineer") {
             generateEngineerCard(teamMember);
@@ -209,7 +220,7 @@ function generateEmployeeCards() {
 function generateManagerCard(teamMember) {
     // console.log("this is a manager card")
     // console.log(teamMember.constructor.name)
-    return `
+    const managerCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
                 <h3>${teamMember.name}</h3>
                 <h4>Manager</h4>
@@ -218,11 +229,12 @@ function generateManagerCard(teamMember) {
                 <p>Office Number ${teamMember.office}</p>
             </div>
 `
-    // console.log(managerCard)
+htmlArray.push(managerCard)
+    console.log(htmlArray)
 }
 
 function generateEngineerCard(teamMember) {
-    return `
+    const engineerCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
                 <h3>${teamMember.name}</h3>
                 <h4>Engineer</h4>
@@ -231,11 +243,12 @@ function generateEngineerCard(teamMember) {
                 <p>Github: ${teamMember.github}</p>
             </div>
 `
+htmlArray.push(engineerCard)
 
 }
 
 function generateInternCard(teamMember) {
-    return `
+    const internCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
                 <h3>${teamMember.name}</h3>
                 <h4>Intern</h4>
@@ -244,6 +257,7 @@ function generateInternCard(teamMember) {
                 <p>Github: ${teamMember.school}</p>
             </div>
 `
+htmlArray.push(internCard)
 }
 
 
