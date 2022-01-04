@@ -222,9 +222,9 @@ function generateEmployeeCards() {
 //html for different cards
 function generateManagerCard(teamMember) {
     const managerCard = `
-    <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
-                <h3>${teamMember.name}</h3>
-                <h4>Manager</h4>
+    <div style = "border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
+                <h3 style = "color: DodgerBlue" >${teamMember.name}</h3>
+                <h4 style = "text-decoration: underline overline solid black" >Manager</h4>
                 <p>ID: ${teamMember.id}</p>
                 <p>${teamMember.email}</p>
                 <p>Office Number ${teamMember.office}</p>
@@ -237,8 +237,8 @@ htmlArray.push(managerCard)
 function generateEngineerCard(teamMember) {
     const engineerCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
-                <h3>${teamMember.name}</h3>
-                <h4>Engineer</h4>
+                <h3 style = "color: ForestGreen" >${teamMember.name}</h3>
+                <h4 style = "text-decoration: underline overline solid black" >Engineer</h4>
                 <p>ID: ${teamMember.id}</p>
                 <p>${teamMember.email}</p>
                 <p>Github: ${teamMember.github}</p>
@@ -251,8 +251,8 @@ htmlArray.push(engineerCard)
 function generateInternCard(teamMember) {
     const internCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
-                <h3>${teamMember.name}</h3>
-                <h4>Intern</h4>
+                <h3 style = "color: DarkRed">${teamMember.name}</h3>
+                <h4 style = "text-decoration: underline overline solid black" >Intern</h4>
                 <p>ID: ${teamMember.id}</p>
                 <p>${teamMember.email}</p>
                 <p>Github: ${teamMember.school}</p>
