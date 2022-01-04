@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-// const path = require('path')
+const path = require('path')
 // const generateHTML = require("./src/generateHTML")
 
 const Employee = require('./lib/employee')
@@ -13,6 +13,38 @@ const Intern = require("./lib/intern")
 
 //empty array for inquirer answers/team member info
 const teamArray = []
+let htmlArray = []
+
+
+const render = htmlArray => { 
+    return `  
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Team Profile</title>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <h1>Team Profile</h1>
+        <div id="cardContainer" class="row align-items-center">
+           ${htmlArray.join(',')}
+        </div>
+
+    </div>
+
+</body>
+
+</html>`;
+}
+
+
 
 
 
@@ -39,7 +71,6 @@ function addTeamMember() {
             }
             else {
                 generateEmployeeCards();
-                generateHTML(htmlContent);
             }
         }
         )
@@ -74,7 +105,6 @@ function addManager() {
 
         .then(info => {
             const manager = new Manager(info.name, info.id, info.email, info.office)
-            // console.log(manager)
             info.position = manager
             teamArray.push(manager)
             addTeamMember();
@@ -111,7 +141,6 @@ function addEngineer() {
 
         .then(info => {
             const engineer = new Engineer(info.name, info.id, info.email, info.github)
-            // console.log(engineer)
             teamArray.push(engineer)
             addTeamMember();
         }
@@ -159,36 +188,6 @@ function addIntern() {
 
 
 //empty array for storing the employee cards//
-const htmlArray = []
-
-
-const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Team Profile</title>
-</head>
-
-<body>
-    <div style="text-align: center;">
-        <h1>Team Profile</h1>
-        <div id="cardContainer" class="row align-items-center">
-            ${(htmlArray)}
-        </div>
-
-    </div>
-
-</body>
-
-</html>`
-
-
 
 
 
@@ -196,8 +195,6 @@ const htmlContent = `
 //loops over teamArray and determines which type of card to create
 function generateEmployeeCards() {
     teamArray.forEach(teamMember => {
-        // console.log("generating HTML");
-        // console.log(teamMember.constructor.name)
         if (teamMember.constructor.name === "Manager") {
             /////////////
             // return generateManagerCard(teamMember);
@@ -207,10 +204,16 @@ function generateEmployeeCards() {
         else if (teamMember.constructor.name === "Engineer") {
             generateEngineerCard(teamMember);
         }
-        else if (teamMember.constructor.name === "Intern")
+        else if (teamMember.constructor.name === "Intern") {
             generateInternCard(teamMember);
+        }
+        
     }
+    
     )
+    console.log(htmlArray)
+    generateHTML(htmlArray);
+
 }
 
 
@@ -218,8 +221,6 @@ function generateEmployeeCards() {
 
 //html for different cards
 function generateManagerCard(teamMember) {
-    // console.log("this is a manager card")
-    // console.log(teamMember.constructor.name)
     const managerCard = `
     <div style="border: 3px black solid; border-radius: 20px; margin:30px" class="col-4">
                 <h3>${teamMember.name}</h3>
@@ -230,7 +231,7 @@ function generateManagerCard(teamMember) {
             </div>
 `
 htmlArray.push(managerCard)
-    console.log(htmlArray)
+
 }
 
 function generateEngineerCard(teamMember) {
@@ -258,6 +259,8 @@ function generateInternCard(teamMember) {
             </div>
 `
 htmlArray.push(internCard)
+
+
 }
 
 
@@ -265,14 +268,16 @@ htmlArray.push(internCard)
 
 // writes file using the htmlContent
 
-function generateHTML(htmlContent) {
-    fs.writeFile('/Users/milesmoss/Bootcamp/Homework/Homework-Week-10/team-profile-generator/team-profile.html', htmlContent, (err) =>
-        err ? console.error(err) : console.log("File created."))
-}
+// function generateHTML(htmlContent) {
+//     fs.writeFile('/Users/milesmoss/Bootcamp/Homework/Homework-Week-10/team-profile-generator/team-profile.html', htmlContent, (err) =>
+//         err ? console.error(err) : console.log("File created."))
+// }
 
+function generateHTML(htmlArray) {
+    fs.writeFileSync(path.join(path.resolve(__dirname, 'dist'), 'team.html'), render(htmlArray), 'utf-8')
+}
 ////////////////////////////////////////////////////////////////////////////////////
 
 
 //starts app, starts inquirer questions 
 addTeamMember();
-
